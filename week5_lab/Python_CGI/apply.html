@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Join my company | SDWI2017</title>
+  <!-- bootstrap external CSS -->
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+  <!-- Local Bootstrap external CSS -->
+  <style>
+    .container{
+      width:650px;/*set width as 650 pixel*/
+    }
+    fieldset {/*an orginal fieldset style for bootstrap*/
+      border: 1px solid #c0c0c0;/*a 1 px gray border*/
+      margin: 0 2px;
+      padding: 0.35em 0.625em 0.75em;
+    }
+    label {
+      display: block;
+      margin-bottom: .5em;
+    }
+    legend {
+      display: block;
+      width: 100%;
+      padding: 0;
+      margin-bottom: .5rem;
+      font-size: 1.0em;
+      line-height: inherit;
+    }
+    .has-success {
+      border-color: #5cb85c;/*a success border color for email*/
+    }
+    .has-danger {
+      border-color: #d9534f;/*a error border color for email*/
+    }
+    .title{
+      padding-top: 10px;
+    }
+    .btnmiddle{
+      text-align: center;/*center the buttom*/
+      margin: 20px 0px
+    }
+    .banner{
+      max-width: 100%;
+      height: 54px;
+      background-color: #222222;/*black banner*/
+      color: #FFFFFF;
+      line-height: 54px;/*middle align*/
+      padding: 0 100px 0 100px;/*inside padding for fonts*/
+    }
+    .backlink{
+      float: right;/*back buttom float right*/
+    }
+    .footer{
+      margin-top: 50px;
+      max-width: 100%;
+      height: 50px;
+      background-color: #efefef;/*a gray write footer*/
+    }
+    .copyright{
+      width: 650px;
+      margin:0 auto;
+      line-height: 50px;
+    }
+    .copyrighttext{
+      margin-bottom: 0px;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner"><!-- A black banner with title and back link -->
+    Join My Company
+  </div>
+  <div class="container">
+    <h2 class="title">Please fill in the form below to submit.</h2>
+    <form id="form" action="../cgi-bin/hireinfo.py" method="post"><!-- post info to form.php -->
+      <p>User name:</p>
+      <div class="row">
+        <div class="col"><!-- Name input box -->
+          <input class="form-control" type="text" id="username" placeholder="Name" name="username">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <fieldset id="skills">
+            <legend>Your Current Skills</legend><!-- Current Skills Input box -->
+            <label class="form-check-label"><!-- differents if name for JS getElementbyId function -->
+              <input type="checkbox" id="skilla" value="Web Design" name="skills">Web Design
+            </label>
+            <label class="form-check-label">
+              <input type="checkbox" id="skillb" value="Java" name="skills">Java
+            </label>
+            <label class="form-check-label">
+              <input type="checkbox" id="skillc" value="Database" name="skills">Database
+            </label>
+          </fieldset>
+        </div>
+        <div class="col">
+          <fieldset>
+            <legend>City Expected</legend><!-- Expect City Input box -->
+            <label class="form-check-label"><!-- get Elments by Name -->
+              <input type="radio" value="Beijing" name="city">Beijing
+            </label>
+            <label class="form-check-label">
+              <input type="radio" value="Shenzhen" name="city">Shenzhen
+            </label>
+            <label class="form-check-label">
+              <input type="radio" value="Zhuhai" name="city">Zhuhai
+            </label>
+          </fieldset>
+        </div>
+      </div>
+      <p>Position:</p>
+      <div class="row">
+        <div class="col"><!-- Position Input box -->
+          <select name="position" id="position" class="form-control">
+            <option value="Officer">Officer</option>
+            <option value="Manager">Manager</option>
+            <option value="Engineer">Engineer</option>
+            <option value="Architect">Architect</option>
+          </select>
+        </div>
+      </div>
+      <p>Recent Jobs</p>
+      <div class="row">
+        <div class="col"><!-- Position Input box --><!--  -->
+          <select multiple="multiple" size="5" id="multiple" class="form-control">
+            <option value="Assistant">Assistant</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Customer service">Customer service</option>
+            <option value="Manager">Manager</option>
+            <option value="CEO">CEO</option>
+          </select>
+        </div>
+      </div>
+      <p>Work Experience</p>
+      <div class="row">
+        <div class="col">
+          <textarea rows="8" id="text" class="form-control" name="exp"></textarea>
+        </div>
+      </div>
+      <p>Upload a file:</p>
+      <div class="row">
+        <div class="col">
+          <label class="form-control">
+            <input type="file" id="file"><!-- a file update input -->
+          </label>
+        </div>
+      </div>
+      <input type="text" style="display:none" name="cs" id="cs"><!-- a nondisplay input box for PHP Post -->
+      <input type="text" style="display:none" name="citye" id="citye">
+      <input type="text" style="display:none" name="po" id="po">
+      <input type="text" style="display:none" name="rj" id="rj">
+      <div class="btnmiddle">
+        <input type="button" value="Reset" class="btn btn-danger" onclick="resetinfo()"/><!-- a reset()Function used -->
+        <input type="submit" value="Submit" class="btn btn-success" id="gf" onclick="ainfo()" /><!-- enable only after Submit buttom was clicked -->
+      </div>
+    </form>
+    <br>
+  </div>
+
+  <footer class="footer">
+    <div class="copyright"><!-- a Copyright Footer -->
+      <p class="copyrighttext">&copy; Copyright <a href="https://ecwuuuuu.com/">Jack Wu</a> 2017-2018 All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</body>
+<script>
+  function ainfo(){
+    var userName = document.getElementById("username").value;/*get username Value from the webpage*/
+
+    function skills(){
+      var selecta = document.getElementById('skilla');
+      var selectb = document.getElementById('skillb');
+      var selectc = document.getElementById('skillc');/*import document data to var*/
+      var result = [];/*define a new array*/
+      var input;/*define a empty var*/
+      if (selecta.checked){/*bool check, the var checked or not*/
+        result.push(selecta.value);/*add this var's value to array*/
+      }
+      if (selectb.checked){
+        result.push(" " + selectb.value);/*add value with a space*/
+      }
+      if (selectc.checked){
+        result.push(" " + selectc.value);
+      }
+      return result; /*return the array to the function*/
+    }
+
+
+    function ce(){
+      var select = document.getElementsByName("city");
+      var result = [];
+      var option ;
+      for (var i = 0, iLen = select.length; i<iLen; i++){/*set iLen as the length of the select var*//*i++ == i=i+1*/
+        option = select[i];/*take the i element from var*/
+        if (option.checked){/*bool check*/
+          result.push(" " + option.value);/*add this value to array*/
+        }
+      }
+      return result;/*return the array to the function*/
+    }
+
+    function position(){
+      var select = document.getElementById('position');
+      var result = [];
+      var option ;
+      for (var i = 0, iLen = select.length; i<iLen; i++){
+        option = select[i];
+        if (option.selected){
+          result.push(" " + option.value);
+        }
+      }
+      return result;
+    }
+
+    function jobs(){
+      var select = document.getElementById('multiple');
+      var result = [];
+      var option;
+      for (var i = 0, iLen = select.length; i<iLen; i++){
+        option = select[i];
+        if (option.selected){/*bool check selected or not*/
+          result.push(" " + option.value);
+        }
+      }
+      return result;
+    }
+
+    function text(){
+      var select = document.getElementById('text').value;
+      return select;
+    }
+
+    function file(){
+      var result;
+      var file = document.getElementById('file'); 
+      if (file.value == ""){/*logic test: selected or empty*/
+        result = "no";
+      }
+      else {
+        result = "yes";
+      }
+      return result;
+    }
+
+    function fill(){/*write this info to an undisplay input tag*/
+      document.getElementById('cs').value = skills();
+      document.getElementById('citye').value = ce();
+      document.getElementById('po').value = position();
+      document.getElementById('rj').value = jobs();
+    }/*for php table*/
+
+
+    checkinfo = "Name: " + userName + "\n"
+    + "Current Skills: " + skills() + "\n"
+    + "City Expected: " + ce() + "\n"
+    + "Position: " + position() + "\n"
+    + "Recent Jobs: " + jobs() + "\n"
+    + "Work Experience: " + text() + "\n"
+    + "Upload file: " + file();/*Info Matrix*/
+    fill();/*run the fill function*/
+    alert(checkinfo);/*output to info using a alert window*/
+  }
+
+  function resetinfo(){/*a question before reset the page*/
+    if(confirm("Are you sure?")){/*a reset confirm buttom*/
+      document.getElementById("form").reset();
+    }
+  }
+
+  function emailchange(){
+    var email = document.getElementById("email").value;
+    var regt = /^[A-Za-z0-9]+([-_.][A-Za-z0-9]+)*@([A-Za-z0-9]+[-.])+[A-Za-z]{2,5}$/;/*Reg Test Temp*/
+    if (regt.test(email)) {
+      document.getElementById("email").setAttribute("class","form-control has-success");/*change the box style if the value pass the reg test*/
+    }else{
+      document.getElementById("email").setAttribute("class","form-control has-danger");
+    }
+  }
+</script><!-- js script -->
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><!-- jQuery Dep Js File -->
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.js"></script><!-- jQuery Dep Js File -->
+</html>
